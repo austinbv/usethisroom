@@ -12,6 +12,8 @@
     <jetty.plugin.version>9.0.4.v20130625</jetty.plugin.version>
     <java.version>1.7</java.version>
     <javax.servlet-api.version>3.0.1</javax.servlet-api.version>
+    <fluentlenium.version>0.9.0</fluentlenium.version>
+    <testng.version>6.8.5</testng.version>
   </properties>
 
   <dependencies>
@@ -45,11 +47,50 @@
       <artifactId>javax.servlet-api</artifactId>
       <version>${javax.servlet-api.version}</version>
     </dependency>
+
+    <!-- Test -->
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>${testng.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.fluentlenium</groupId>
+      <artifactId>fluentlenium-core</artifactId>
+      <version>${fluentlenium.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.fluentlenium</groupId>
+      <artifactId>fluentlenium-festassert</artifactId>
+      <version>${fluentlenium.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.fluentlenium</groupId>
+      <artifactId>fluentlenium-testng</artifactId>
+      <version>${fluentlenium.version}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
     <finalName>usethisroom</finalName>
+
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
+
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
@@ -57,13 +98,39 @@
           <target>${java.version}</target>
         </configuration>
       </plugin>
+
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
+          <useFile>false</useFile>
+          <trimStackTrace>false</trimStackTrace>
+          <disableXmlReport>true</disableXmlReport>
           <includes>
-            <include>**/*Tests.java</include>
+            <include>**/unit/**/*Test.java</include>
           </includes>
         </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>2.15</version>
+        <configuration>
+          <useFile>false</useFile>
+          <trimStackTrace>false</trimStackTrace>
+          <disableXmlReport>true</disableXmlReport>
+          <includes>
+            <include>**/integration/**/*Test.java</include>
+          </includes>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
 
       <plugin>
@@ -72,8 +139,8 @@
         <version>${jetty.plugin.version}</version>
         <configuration>
           <scanIntervalSeconds>1</scanIntervalSeconds>
-          <stopKey>foo</stopKey>
-          <stopPort>9999</stopPort>
+          <stopKey>STOP</stopKey>
+          <stopPort>8888</stopPort>
           <webApp>
             <contextPath>/</contextPath>
           </webApp>
@@ -88,6 +155,14 @@
             <configuration>
               <scanIntervalSeconds>0</scanIntervalSeconds>
               <daemon>true</daemon>
+              <stopKey>STOP-TEST</stopKey>
+              <stopPort>9999</stopPort>
+              <systemProperties>
+              <systemProperty>
+                  <name>jetty.port</name>
+                  <value>9090</value>
+                </systemProperty>
+              </systemProperties>
             </configuration>
           </execution>
           <execution>
@@ -96,6 +171,10 @@
             <goals>
               <goal>stop</goal>
             </goals>
+            <configuration>
+              <stopKey>STOP-TEST</stopKey>
+              <stopPort>9999</stopPort>
+            </configuration>
           </execution>
         </executions>
       </plugin>
