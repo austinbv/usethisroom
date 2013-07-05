@@ -23,10 +23,12 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="SpringAppMVC" />
+        <module name="usethisroom" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="SpringAppMVC" target="1.7" />
+      <module name="usethisroom" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

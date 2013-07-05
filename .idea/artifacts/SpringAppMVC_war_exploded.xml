@@ -2,10 +2,10 @@
   <artifact type="exploded-war" name="SpringAppMVC:war exploded">
     <output-path>$PROJECT_DIR$/target/usethisroom</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="SpringAppMVC/web/Web" />
+      <element id="javaee-facet-resources" facet="usethisroom/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="SpringAppMVC" />
+          <element id="module-output" name="usethisroom" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.springframework:spring-core:3.2.3.RELEASE" />
