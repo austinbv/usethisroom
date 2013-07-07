@@ -2,7 +2,6 @@ package com.austinbv.usethisroom.acceptance;
 
 import com.austinbv.usethisroom.acceptance.pages.LoginPage;
 import com.austinbv.usethisroom.acceptance.pages.MainPage;
-import org.fluentlenium.adapter.FluentTestNg;
 import org.fluentlenium.adapter.util.SharedDriver;
 import org.fluentlenium.core.annotation.Page;
 import org.testng.annotations.Test;
@@ -10,7 +9,7 @@ import org.testng.annotations.Test;
 import static org.fest.assertions.fluentlenium.FluentLeniumAssertions.assertThat;
 
 @SharedDriver(type = SharedDriver.SharedType.ONCE)
-public class LoggingIn extends FluentTestNg {
+public class LoggingIn extends IntegrationBase {
   @Page
   LoginPage loginPage;
   @Page
