@@ -3,7 +3,6 @@ package com.austinbv.usethisroom.acceptance.pages;
 import org.fluentlenium.core.FluentPage;
 import org.fluentlenium.core.domain.FluentWebElement;
 import org.openqa.selenium.support.FindBy;
-import org.springframework.beans.factory.annotation.Value;
 
 import static org.fest.assertions.Assertions.assertThat;
 
