@@ -16,13 +16,8 @@
 
 package com.austinbv.usethisroom.acceptance;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import com.austinbv.usethisroom.configuration.ApplicationModule;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.fluentlenium.adapter.FluentTestNg;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -32,8 +27,6 @@ import org.springframework.test.context.TestContextManager;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.testng.IHookCallBack;
 import org.testng.IHookable;
 import org.testng.ITestResult;
@@ -42,11 +35,14 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 /**
  * Abstract base test class which integrates the <em>Spring TestContext Framework</em>
  * with explicit {@link ApplicationContext} testing support in a <strong>TestNG</strong>
  * environment.
- *
+ * <p/>
  * <p>Concrete subclasses:
  * <ul>
  * <li>Typically declare a class-level {@link ContextConfiguration
@@ -64,17 +60,19 @@ import org.testng.annotations.BeforeMethod;
  *
  * @author Sam Brannen
  * @author Juergen Hoeller
- * @since 2.5
  * @see TestContext
  * @see TestContextManager
  * @see TestExecutionListeners
  * @see org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests
+ * @since 2.5
  */
 
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class })
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class})
 public abstract class SpringFluent extends FluentTestNg implements IHookable, ApplicationContextAware {
 
-  /** Logger available to subclasses */
+  /**
+   * Logger available to subclasses
+   */
   protected final Log logger = LogFactory.getLog(getClass());
 
   /**
@@ -112,7 +110,7 @@ public abstract class SpringFluent extends FluentTestNg implements IHookable, Ap
    * callbacks.
    *
    * @throws Exception if a registered TestExecutionListener throws an
-   * exception
+   *                   exception
    */
   @BeforeClass(alwaysRun = true)
   protected void springTestContextBeforeTestClass() throws Exception {
@@ -126,7 +124,7 @@ public abstract class SpringFluent extends FluentTestNg implements IHookable, Ap
    * injecting dependencies, etc.
    *
    * @throws Exception if a registered TestExecutionListener throws an
-   * exception
+   *                   exception
    */
   @BeforeClass(alwaysRun = true, dependsOnMethods = "springTestContextBeforeTestClass")
   protected void springTestContextPrepareTestInstance() throws Exception {
@@ -135,7 +133,7 @@ public abstract class SpringFluent extends FluentTestNg implements IHookable, Ap
 
   /**
    * Delegates to the configured {@link TestContextManager} to
-   * {@link TestContextManager#beforeTestMethod(Object,Method) pre-process}
+   * {@link TestContextManager#beforeTestMethod(Object, Method) pre-process}
    * the test method before the actual test is executed.
    *
    * @param testMethod the test method which is about to be executed.
@@ -152,7 +150,7 @@ public abstract class SpringFluent extends FluentTestNg implements IHookable, Ap
    * and then tracks the exception thrown during test execution, if any.
    *
    * @see org.testng.IHookable#run(org.testng.IHookCallBack,
-   * org.testng.ITestResult)
+   *      org.testng.ITestResult)
    */
   public void run(IHookCallBack callBack, ITestResult testResult) {
     callBack.runTestMethod(testResult);
@@ -170,15 +168,14 @@ public abstract class SpringFluent extends FluentTestNg implements IHookable, Ap
    * post-process} the test method after the actual test has executed.
    *
    * @param testMethod the test method which has just been executed on the
-   * test instance
+   *                   test instance
    * @throws Exception allows all exceptions to propagate
    */
   @AfterMethod(alwaysRun = true)
   protected void springTestContextAfterTestMethod(Method testMethod) throws Exception {
     try {
       this.testContextManager.afterTestMethod(this, testMethod, this.testException);
-    }
-    finally {
+    } finally {
       this.testException = null;
     }
   }
@@ -188,7 +185,7 @@ public abstract class SpringFluent extends FluentTestNg implements IHookable, Ap
    * {@link TestContextManager#afterTestClass() 'after test class'} callbacks.
    *
    * @throws Exception if a registered TestExecutionListener throws an
-   * exception
+   *                   exception
    */
   @AfterClass(alwaysRun = true)
   protected void springTestContextAfterTestClass() throws Exception {

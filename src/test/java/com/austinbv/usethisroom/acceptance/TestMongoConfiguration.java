@@ -1,4 +1,4 @@
-package com.austinbv.usethisroom.configuration;
+package com.austinbv.usethisroom.acceptance;
 
 import com.mongodb.Mongo;
 import org.springframework.context.annotation.Bean;
@@ -8,12 +8,12 @@ import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @Configuration
-@Profile("dev")
+@Profile("integration-test")
 @EnableMongoRepositories(basePackages = {"com.austinbv.usethisroom"})
-public class MongoConfiguration extends AbstractMongoConfiguration {
+public class TestMongoConfiguration extends AbstractMongoConfiguration {
   @Override
   protected String getDatabaseName() {
-    return "usethisroom";
+    return "usethisroom-test";
   }
 
   @Override

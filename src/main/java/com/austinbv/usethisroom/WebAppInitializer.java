@@ -2,7 +2,6 @@ package com.austinbv.usethisroom;
 
 import com.austinbv.usethisroom.configuration.ApplicationModule;
 import com.austinbv.usethisroom.configuration.DispatcherModule;
-import com.austinbv.usethisroom.configuration.MongoConfiguration;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -21,8 +20,8 @@ public class WebAppInitializer implements WebApplicationInitializer {
     container.addListener(new ContextLoaderListener(rootContext));
 
     AnnotationConfigWebApplicationContext dispatcherContext = new AnnotationConfigWebApplicationContext();
+    rootContext.getEnvironment().setActiveProfiles("dev");
     dispatcherContext.register(DispatcherModule.class);
-    dispatcherContext.register(MongoConfiguration.class);
 
     container.addFilter("springSecurityFilterChain", new DelegatingFilterProxy("springSecurityFilterChain"))
       .addMappingForUrlPatterns(null, false, "/*");
