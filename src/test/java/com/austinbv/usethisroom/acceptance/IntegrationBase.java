@@ -1,6 +1,7 @@
 package com.austinbv.usethisroom.acceptance;
 
 import com.austinbv.usethisroom.configuration.ApplicationModule;
+import com.austinbv.usethisroom.fakes.SpringFluent;
 import org.fluentlenium.adapter.util.SharedDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
@@ -19,14 +20,6 @@ public class IntegrationBase extends SpringFluent {
 
   @BeforeClass
   public void setUp() throws Exception {
-    getMongoConfiguration().mongoDbFactory().getDb().dropDatabase();
-  }
-
-  protected AbstractMongoConfiguration getMongoConfiguration() {
-    return mongoConfiguration;
-  }
-
-  protected void setMongoConfiguration(AbstractMongoConfiguration mongoConfiguration) {
-    this.mongoConfiguration = mongoConfiguration;
+    mongoConfiguration.mongoDbFactory().getDb().dropDatabase();
   }
 }

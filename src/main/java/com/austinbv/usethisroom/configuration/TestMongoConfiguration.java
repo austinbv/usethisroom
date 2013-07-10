@@ -1,4 +1,4 @@
-package com.austinbv.usethisroom.acceptance;
+package com.austinbv.usethisroom.configuration;
 
 import com.mongodb.Mongo;
 import org.springframework.context.annotation.Bean;

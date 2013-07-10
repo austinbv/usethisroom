@@ -2,6 +2,7 @@ package com.austinbv.usethisroom;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.authentication.encoding.PlaintextPasswordEncoder;
 
 @Document
 public class User {
@@ -23,6 +24,7 @@ public class User {
   }
 
   public void setPassword(String password) {
-    this.password = password;
+    PlaintextPasswordEncoder plaintextPasswordEncoder = new PlaintextPasswordEncoder();
+    this.password = plaintextPasswordEncoder.encodePassword(password, null);
   }
 }

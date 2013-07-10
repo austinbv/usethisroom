@@ -25,10 +25,7 @@
 
 
   <authentication-manager>
-    <authentication-provider>
-      <user-service>
-        <user name="austinbv@gmail.com" password="123456" authorities="ROLE_USER"/>
-      </user-service>
+    <authentication-provider user-service-ref="securityUserDetailsService">
     </authentication-provider>
   </authentication-manager>
 

@@ -20,7 +20,6 @@ public class WebAppInitializer implements WebApplicationInitializer {
     container.addListener(new ContextLoaderListener(rootContext));
 
     AnnotationConfigWebApplicationContext dispatcherContext = new AnnotationConfigWebApplicationContext();
-    rootContext.getEnvironment().setActiveProfiles("dev");
     dispatcherContext.register(DispatcherModule.class);
 
     container.addFilter("springSecurityFilterChain", new DelegatingFilterProxy("springSecurityFilterChain"))

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.austinbv.usethisroom.acceptance;
+package com.austinbv.usethisroom.fakes;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

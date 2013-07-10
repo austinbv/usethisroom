@@ -11,7 +11,9 @@ import org.testng.annotations.Test;
 
 import java.util.UUID;
 
-public class LoggingIn extends IntegrationBase {
+public class LoggingInTest extends IntegrationBase {
+  private final String password = UUID.randomUUID().toString();
+  private final String username = "austinbv@gmail.com";
   @Page
   private LoginPage loginPage;
   @Page
@@ -22,8 +24,8 @@ public class LoggingIn extends IntegrationBase {
   @BeforeClass
   public void setup() {
     User user = new User();
-    user.setUsername("austinbv@gmail.com");
-    user.setPassword(UUID.randomUUID().toString());
+    user.setUsername(username);
+    user.setPassword(password);
     userRepository.save(user);
   }
 
@@ -31,7 +33,8 @@ public class LoggingIn extends IntegrationBase {
   public void allowsLogin() {
     goTo(loginPage);
     loginPage.isAt();
-    loginPage.login("austinbv@gmail.com", "123456");
+
+    loginPage.login(username, password);
 
     mainPage.isAt();
   }
