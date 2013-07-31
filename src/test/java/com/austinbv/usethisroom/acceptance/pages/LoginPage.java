@@ -1,6 +1,7 @@
 package com.austinbv.usethisroom.acceptance.pages;
 
 import org.fluentlenium.core.FluentPage;
+import org.fluentlenium.core.action.FluentDefaultActions;
 import org.fluentlenium.core.domain.FluentWebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -8,11 +9,13 @@ import static org.fest.assertions.Assertions.assertThat;
 
 public class LoginPage extends FluentPage {
   @FindBy(css = "input[name=j_username]")
-  FluentWebElement usernameElement;
+  private FluentWebElement usernameElement;
   @FindBy(css = "input[name=j_password]")
-  FluentWebElement passwordElement;
+  private FluentWebElement passwordElement;
   @FindBy(css = "form button[type=submit]")
-  FluentWebElement loginButtonElement;
+  private FluentWebElement loginButtonElement;
+  @FindBy(css = ".register")
+  private FluentWebElement registrationLink;
 
   @Override
   public String getUrl() {
@@ -28,5 +31,9 @@ public class LoginPage extends FluentPage {
     fill(usernameElement).with(username);
     fill(passwordElement).with(password);
     click(loginButtonElement);
+  }
+
+  public void goToRegistrationPage() {
+    click(registrationLink);
   }
 }

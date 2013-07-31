@@ -15,5 +15,6 @@
   <label><input type='checkbox' name='_spring_security_remember_me' checked="checked"/>Remember Me</label>
   <button type="submit">Submit</button>
 </form>
+<a href="register" class="register">Register</a>
 </body>
 </html>

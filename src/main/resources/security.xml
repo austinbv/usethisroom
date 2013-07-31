@@ -17,7 +17,7 @@
     <intercept-url pattern="/css/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
     <intercept-url pattern="/login" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
     <intercept-url pattern="/google/code" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-    <intercept-url pattern="/register" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+    <intercept-url pattern="/register/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
     <intercept-url pattern="/**" access="ROLE_USER"/>
     <form-login login-page='/login'/>
